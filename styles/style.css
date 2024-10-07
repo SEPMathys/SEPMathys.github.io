@@ -1,0 +1,158 @@
+@import url(//fonts.googleapis.com/css?family=Oswald:400);
+
+/* Styles généraux */
+body {
+  font-family: "Oswald", Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+}
+
+html, body {
+  height: 100%; /* Assurez-vous que le corps prend toute la hauteur de la page */
+}
+
+/* Styles de l'en-tête */
+header {
+  background-color: #4CAF50; /* Couleur verte */
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin: 0 15px;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav ul li a:hover {
+  text-decoration: underline;
+}
+
+/* Styles du contenu principal */
+main {
+  display: flex;
+  justify-content: center; /* Centrer le contenu horizontalement */
+  padding: 20px;
+}
+
+/* Styles pour le conteneur du tableau et du graphique */
+.chart-container {
+  display: flex;
+  flex-direction: row; /* Aligner le tableau à côté du graphique */
+  align-items: flex-start; /* Alignement en haut */
+  border: 1px solid #ccc; /* Ajout d'une bordure pour délimiter la boîte */
+  padding: 20px; /* Espacement intérieur */
+  background-color: #fff; /* Fond blanc pour la boîte */
+}
+
+/* Styles pour le diagramme doughnut */
+.chart {
+  width: 300px; /* Ajustez la largeur selon vos besoins */
+  height: 300px; /* Ajustez la hauteur selon vos besoins */
+  margin-right: 20px; /* Espacement entre le graphique et le tableau */
+}
+
+.doughnutTip {
+  position: absolute;
+  min-width: 30px;
+  max-width: 300px;
+  padding: 5px 15px;
+  border-radius: 1px;
+  background: rgba(0, 0, 0, .8);
+  color: #ddd;
+  font-size: 17px;
+  text-shadow: 0 1px 0 #000;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.3;
+  letter-spacing: .06em;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.doughnutTip::after {
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  content: "";
+  height: 0;
+  margin: 0 0 0 -6px;
+  border-right: 5px solid transparent;
+  border-left: 5px solid transparent;
+  border-top: 6px solid rgba(0, 0, 0, .7);
+  line-height: 0;
+}
+
+.doughnutSummary {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: #d5d5d5;
+  text-align: center;
+  text-shadow: 0 -1px 0 #111;
+  cursor: default;
+}
+
+.doughnutSummaryTitle {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  margin-top: -27%;
+  font-size: 22px;
+  letter-spacing: .06em;
+}
+
+.doughnutSummaryNumber {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  margin-top: -15%;
+  font-size: 55px;
+}
+
+.chart path:hover {
+  opacity: 0.65;
+}
+
+/* Styles du tableau */
+table {
+  border-collapse: collapse;
+  width: 400px; /* Ajustez la largeur selon vos besoins */
+  background-color: white;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+
+th, td {
+  padding: 10px;
+  text-align: center;
+}
+
+th {
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* Styles du pied de page */
+footer {
+  background-color: #333; /* Couleur sombre */
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+}
