@@ -124,8 +124,8 @@
       // Applique un style de décalage pour bouger toute la boîte du graphe (SVG + textes)
       $this.css({
         "position": "relative",
-        "left": "-400px",  // Ajustez la position horizontale ici
-        "top": "0px"    // Ajustez la position verticale ici
+        "left": "-450px",  // Ajustez la position horizontale ici
+        "top": "300px"    // Ajustez la position verticale ici
       });
 
       //Functions

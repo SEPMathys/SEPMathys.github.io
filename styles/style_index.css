@@ -1,0 +1,213 @@
+/* Importer des polices stylées */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400&display=swap');
+
+/* Style général de la page */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #e8f0fe; /* Fond pastel clair */
+  color: #2c2c2c; /* Texte sombre */
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Assure que le corps prend toute la hauteur de la fenêtre */
+}
+
+/* Styles de l'en-tête */
+header {
+  background: linear-gradient(90deg, #5c94ff, #a0c4ff, #d1e4ff); /* Dégradé clair avec des nuances de bleu */
+  color: #1a1a1a; /* Texte sombre */
+  padding: 20px;
+  text-align: center;
+  font-family: 'Orbitron', sans-serif;
+  text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2); /* Ombre douce pour le texte */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Ombre plus claire */
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin: 0 15px;
+}
+
+nav ul li a {
+  color: #1a1a1a; /* Texte sombre */
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease-in-out;
+}
+
+nav ul li a:hover {
+  color: #5c94ff; /* Couleur lumineuse pour l'effet de survol */
+}
+
+/* Conteneur principal contenant le graphique et le tableau */
+main {
+  display: flex;
+  justify-content: center; /* Centrer le contenu horizontalement */
+  align-items: flex-start; /* Aligner en haut */
+  padding: 50px 20px; /* Réduire le padding pour rapprocher les éléments du haut */
+  gap: 0px; /* Espacement entre le graphique et le tableau */
+  flex: 1; /* Permet au conteneur principal de prendre tout l'espace disponible */
+}
+
+/* Style pour le graphique en cercle */
+.chart {
+  width: 300px;
+  height: 300px;
+  margin: 0;
+  position: relative;
+  background: #ffffff; /* Fond clair pour le cercle */
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(92, 148, 255, 0.5); /* Effet lumineux autour du cercle */
+}
+
+/* Styles pour le tableau */
+table {
+  border-collapse: collapse;
+  width: 450px;
+  background-color: #ffffff; /* Fond clair pour le tableau */
+  color: #2c2c2c; /* Texte sombre */
+  box-shadow: 0 0 15px rgba(92, 148, 255, 0.3); /* Ombre plus claire */
+  border: none;
+}
+
+table, th, td {
+  border: 1px solid #a1a1a1; /* Bordure plus claire */
+}
+
+th, td {
+  padding: 15px;
+  text-align: center;
+}
+
+th {
+  background-color: #a0c4ff; /* Couleur claire stylée pour l'en-tête */
+  color: #1a1a1a; /* Texte sombre */
+  text-transform: uppercase;
+  font-family: 'Orbitron', sans-serif;
+}
+
+td {
+  transition: background 0.3s ease;
+}
+
+td:hover {
+  background-color: #e0e0e0; /* Couleur d'hover plus claire */
+}
+
+/* Styles du pied de page */
+footer {
+  background-color: #5c94ff; /* Couleur lumineuse */
+  color: #1a1a1a; /* Texte sombre */
+  text-align: center;
+  padding: 15px;
+  font-size: 14px;
+  box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.2);
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  margin-top: auto; /* Assure que le pied de page reste en bas de la page */
+}
+
+/* Styles spécifiques au graphique en cercle */
+.doughnutTip {
+  position: absolute;
+  min-width: 30px;
+  max-width: 300px;
+  padding: 5px 15px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.9); /* Fond clair */
+  color: #5c94ff; /* Couleur lumineuse */
+  font-size: 17px;
+  text-shadow: 0px 0px 6px rgba(92, 148, 255, 0.5);
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.3;
+  letter-spacing: .06em;
+  box-shadow: 0 0 10px rgba(92, 148, 255, 0.3); /* Ombre plus claire */
+  pointer-events: none;
+}
+
+.doughnutSummary {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: #5c94ff; /* Couleur lumineuse */
+  text-align: center;
+  font-family: 'Orbitron', sans-serif;
+  text-shadow: 0px 0px 6px rgba(92, 148, 255, 0.5);
+  cursor: default;
+}
+
+.doughnutSummaryTitle {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  margin-top: -27%;
+  font-size: 22px;
+  letter-spacing: .06em;
+}
+
+.doughnutSummaryNumber {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  margin-top: -15%;
+  font-size: 55px;
+  color: #2c2c2c; /* Texte sombre */
+}
+
+.chart path:hover {
+  opacity: 0.65;
+}
+
+/* Animation pour un effet de lumière sur les éléments */
+@keyframes neonGlow {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(92, 148, 255, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(92, 148, 255, 1);
+  }
+}
+
+.match-history {
+  margin-bottom: 20px; /* Espacement entre chaque tableau */
+  box-shadow: 0 0 10px rgba(92, 148, 255, 0.3); /* Ombre plus claire */
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.match-history table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff; /* Fond clair pour le tableau */
+}
+
+.match-history th, .match-history td {
+  padding: 15px;
+  text-align: center;
+  border: 1px solid #a1a1a1; /* Bordure plus claire */
+}
+
+.match-history th {
+  background-color: #a0c4ff; /* Couleur claire pour l'en-tête */
+  color: #1a1a1a; /* Texte sombre */
+}
+
+.match-history td {
+  background-color: #f7f7f7; /* Couleur claire pour les cellules */
+  color: #2c2c2c; /* Texte sombre */
+}
+
+.chart-container {
+  margin: 0; /* Supprime toutes les marges */
+  padding: 0; /* Supprime tout remplissage */
+}
