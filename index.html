@@ -1,17 +1,19 @@
 <!doctype html>
 <html lang="fr">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/style_index.css">
-    <title>Prédiction des matchs de tennis</title>
-    <!-- Inclure jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- Inclure PapaParse -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
-    <!-- Inclure votre script de dessin de diagramme -->
-    <script src="scripts/script.js"></script>
-</head>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles/style_index.css">
+        <title>Prédiction des matchs de tennis</title>
+        <link rel="icon" href="/Images/Logo_Tennis.png" type="image/webp">
+        <!-- Inclure jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!-- Inclure PapaParse pour le traitement CSV -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+        <!-- Inclure Chart.js et son plugin DataLabels -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    </head>
 <body>
     <header>
         <h1>Prédiction des matchs de tennis</h1>
@@ -25,28 +27,68 @@
     </header>
 
     <main>
-        <div class="chart-container">
-            <div id="doughnutChart" class="chart"></div>
-            <table id="predTestTable">
-                <thead>
-                    <tr>
-                        <th>Joueur 1</th>
-                        <th>Joueur 2</th>
-                        <th>Probabilité J1</th>
-                        <th>Probabilité J2</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Les lignes du tableau seront générées ici -->
-                </tbody>
-            </table>
+        <div class="content-container">
+            <div class="chart-header">TOTAL : <span id="totalCount">0</span></div>
+            <div class="chart-container">
+                <canvas id="myDoughnutChart" width="250" height="250"></canvas>
+            </div>
+
+            <div class="table-container">
+                <table id="predTestTable">
+                    <thead>
+                        <tr>
+                            <th>Joueur 1</th>
+                            <th>Joueur 2</th>
+                            <th>Probabilité J1</th>
+                            <th>Probabilité J2</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="live-stream-container" id="liveStreamContainer" style="display: none;">
+                <iframe id="liveStream" width="500" height="300" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
     </main>
 
+    <footer>
+        <p>&copy; 2024 Prédiction des matchs de tennis. Tous droits réservés.</p>
+        <p><a href="/Html/privacy.html">Politique de confidentialité</a> | <a href="/Html/terms.html">Conditions d'utilisation</a></p>
+    </footer>
+
     <script>
     $(function(){
-        // Charger le fichier pred_test.csv pour le tableau
+        const API_KEY = 'AIzaSyDDPa84C7_ZIvcx_DYmUQslC2EbxbkPvx0';
+        const SEARCH_INTERVAL = 300000;
+
+        function searchLiveStream() {
+            const query = "tennis match live";
+            const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&eventType=live&type=video&q=${encodeURIComponent(query)}&key=${API_KEY}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.items && data.items.length > 0) {
+                        const videoId = data.items[0].id.videoId;
+                        const liveStreamUrl = `https://www.youtube.com/embed/${videoId}`;
+                        $("#liveStream").attr("src", liveStreamUrl);
+                        $("#liveStreamContainer").show();
+                    } else {
+                        $("#liveStreamContainer").hide();
+                    }
+                })
+                .catch(error => {
+                    console.log("Erreur lors de la recherche de flux en direct :", error);
+                    $("#liveStreamContainer").hide();
+                });
+        }
+
+        searchLiveStream();
+        setInterval(searchLiveStream, SEARCH_INTERVAL);
+
         Papa.parse("/CSV/pred_test.csv", {
             header: true,
             download: true,
@@ -61,13 +103,9 @@
                         $("#predTestTable tbody").append(tr);
                     }
                 });
-            },
-            error: function(error) {
-                console.error("Erreur lors du chargement du fichier CSV pred_test.csv :", error);
             }
         });
 
-        // Charger le fichier resultat.csv pour le diagramme en doughnut
         Papa.parse("/CSV/resultat.csv", {
             header: true,
             download: true,
@@ -76,30 +114,61 @@
                 let defaiteCount = 0;
 
                 results.data.forEach(row => {
-                    if (row.Resultat == 1) {
-                        victoireCount++;
-                    } else if (row.Resultat == 2) {
-                        defaiteCount++;
-                    }
+                    if (row.Resultat == 1) victoireCount++;
+                    else if (row.Resultat == 2) defaiteCount++;
                 });
 
-                // Dessiner le graphique en doughnut avec les données du fichier resultat.csv
-                $("#doughnutChart").drawDoughnutChart([
-                    { title: "Victoire", value: victoireCount, color: "green"},
-                    { title: "Défaite", value: defaiteCount, color: "red" }
-                ]);
-            },
-            
-            error: function(error) {
-                console.error("Erreur lors du chargement du fichier CSV resultat.csv :", error);
+                let totalCount = victoireCount + defaiteCount;
+                document.getElementById("totalCount").innerText = totalCount;
+
+                const ctx = document.getElementById('myDoughnutChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Victoire', 'Défaite'],
+                        datasets: [{
+                            data: [victoireCount, defaiteCount],
+                            backgroundColor: ['#4caf50', '#f44336'],
+                            hoverBackgroundColor: ['#66bb6a', '#e57373'],
+                            borderColor: '#ffffff',
+                            borderWidth: 3
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        cutout: '70%',
+                        animation: {
+                            animateScale: true,
+                            animateRotate: true
+                        },
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                enabled: true,
+                                backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                                titleColor: '#ffffff',
+                                titleAlign: 'center',
+                                bodyAlign: 'center',
+                                bodyColor: '#ffffff'
+                            },
+                            datalabels: {
+                                display: true,
+                                formatter: (value) => value,
+                                color: '#ffffff',
+                                font: {
+                                    size: 16,
+                                    weight: 'bold'
+                                }
+                            }
+                        }
+                    },
+                    plugins: [ChartDataLabels]
+                });
             }
         });
     });
     </script>
-
-    <footer>
-        <p>&copy; 2024 Prédiction des matchs de tennis. Tous droits réservés.</p>
-        <p><a href="#privacy">Politique de confidentialité</a> | <a href="#terms">Conditions d'utilisation</a></p>
-    </footer>
 </body>
 </html>
