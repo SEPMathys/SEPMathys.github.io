@@ -8,7 +8,7 @@
     <title>Historique des matchs</title>
     <!-- Inclure jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- Inclure PapaParse -->
+    <!-- Inclure PapaParse pour le traitement CSV -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
 </head>
 <body>
@@ -29,25 +29,12 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Joueur 1</th>
-                        <th>Joueur 2</th>
+                        <th>Vainqueur</th>
+                        <th>Perdant</th>
                         <th>Score</th>
-                        <th>Résultat</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td>Rafael Nadal</td>
-                        <td>Roger Federer</td>
-                        <td>6-4, 6-7, 7-6</td>
-                        <td>Victoire</td>
-                    </tr>
-                    <tr>
-                        <td>Novak Djokovic</td>
-                        <td>Andy Murray</td>
-                        <td>6-3, 6-2</td>
-                        <td>Victoire</td>
-                    </tr>
+                <tbody id="historiqueTableBody">
                 </tbody>
             </table>
         </div>
@@ -57,5 +44,27 @@
         <p>&copy; 2024 Prédiction des matchs de tennis. Tous droits réservés.</p>
         <p><a href="/Html/privacy.html">Politique de confidentialité</a> | <a href="/Html/terms.html">Conditions d'utilisation</a></p>
     </footer>
+
+    <script>
+        // Charger et afficher le contenu du fichier Historique.csv
+        $(document).ready(function() {
+            Papa.parse("/CSV/Historique.csv", {
+                header: true,
+                download: true,
+                complete: function(results) {
+                    const tableBody = $("#historiqueTableBody");
+                    results.data.forEach(row => {
+                        if (row.Vainqueur && row.Perdant && row.Score) {
+                            const tr = $("<tr></tr>");
+                            tr.append(`<td>${row.Vainqueur}</td>`);
+                            tr.append(`<td>${row.Perdant}</td>`);
+                            tr.append(`<td>${row.Score}</td>`);
+                            tableBody.append(tr);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
