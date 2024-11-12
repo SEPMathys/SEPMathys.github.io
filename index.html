@@ -102,20 +102,20 @@
         setInterval(fetchLatestVideo, SEARCH_INTERVAL);
 
         Papa.parse("/CSV/pred_test.csv", {
-            header: true,
-            download: true,
-            complete: function(results) {
-                results.data.forEach(row => {
-                    if (row.j1 && row.j2 && row.proba_j1 && row.proba_j2) {
-                        const tr = $("<tr></tr>");
-                        tr.append(`<td>${row.j1}</td>`);
-                        tr.append(`<td>${row.j2}</td>`);
-                        tr.append(`<td>${row.proba_j1}</td>`);
-                        tr.append(`<td>${row.proba_j2}</td>`);
-                        $("#predTestTable tbody").append(tr);
-                    }
-                });
-            }
+        header: true,
+        download: true,
+        complete: function(results) {
+        results.data.forEach(row => {
+            if (row.j1 && row.j2 && row.proba_j1 && row.proba_j2) {
+                const tr = $("<tr></tr>");
+                tr.append(`<td>${row.j1}</td>`);
+                tr.append(`<td>${row.j2}</td>`);
+                tr.append(`<td>${parseFloat(row.proba_j1).toFixed(2)}</td>`);
+                tr.append(`<td>${parseFloat(row.proba_j2).toFixed(2)}</td>`);
+                $("#predTestTable tbody").append(tr);
+                }
+            });
+        }
         });
 
         Papa.parse("/CSV/resultat.csv", {
