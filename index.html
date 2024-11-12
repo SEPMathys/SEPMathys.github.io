@@ -1,19 +1,19 @@
 <!doctype html>
 <html lang="fr">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="styles/style_index.css">
-        <title>Prédiction des matchs de tennis</title>
-        <link rel="icon" href="/Images/Logo_Tennis.png" type="image/webp">
-        <!-- Inclure jQuery -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <!-- Inclure PapaParse pour le traitement CSV -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
-        <!-- Inclure Chart.js et son plugin DataLabels -->
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
-    </head>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/style_index.css">
+    <title>Prédiction des matchs de tennis</title>
+    <link rel="icon" href="/Images/Logo_Tennis.png" type="image/webp">
+    <!-- Inclure jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Inclure PapaParse pour le traitement CSV -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <!-- Inclure Chart.js et son plugin DataLabels -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+</head>
 <body>
     <header>
         <h1>Prédiction des matchs de tennis</h1>
@@ -61,33 +61,45 @@
 
     <script>
     $(function(){
-        const API_KEY = 'AIzaSyDDPa84C7_ZIvcx_DYmUQslC2EbxbkPvx0';
+        const API_KEY = 'AIzaSyDDPa84C7_ZIvcx_DYmUQslC2EbxbkPvx0'; // Remplacez par votre clé API valide
+        const CHANNEL_NAME = 'ATP Tour'; // Nom de la chaîne
         const SEARCH_INTERVAL = 300000;
 
-        function searchLiveStream() {
-            const query = "tennis match live";
-            const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&eventType=live&type=video&q=${encodeURIComponent(query)}&key=${API_KEY}`;
+        function fetchLatestVideo() {
+            // Utilisation de la recherche par nom de chaîne
+            const url = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&q=${encodeURIComponent(CHANNEL_NAME)}&order=date&part=snippet&type=video&maxResults=1`;
 
             fetch(url)
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`Erreur de la requête vidéo: ${response.status} - ${response.statusText}`);
+                    }
+                    return response.json();
+                })
                 .then(data => {
+                    console.log("Données brutes de l'API YouTube (search):", data); // Debug
                     if (data.items && data.items.length > 0) {
                         const videoId = data.items[0].id.videoId;
-                        const liveStreamUrl = `https://www.youtube.com/embed/${videoId}`;
-                        $("#liveStream").attr("src", liveStreamUrl);
+                        const latestVideoUrl = `https://www.youtube.com/embed/${videoId}`;
+                        $("#liveStream").attr("src", latestVideoUrl);
                         $("#liveStreamContainer").show();
                     } else {
-                        $("#liveStreamContainer").hide();
+                        console.warn("Aucune vidéo trouvée pour cette chaîne.");
+                        // En cas d'absence de vidéo, définissez une vidéo par défaut
+                        $("#liveStream").attr("src", "https://www.youtube.com/embed/3aCln_eEgQU"); // URL de la dernière vidéo connue
+                        $("#liveStreamContainer").show();
                     }
                 })
                 .catch(error => {
-                    console.log("Erreur lors de la recherche de flux en direct :", error);
-                    $("#liveStreamContainer").hide();
+                    console.error("Erreur lors de la récupération de la dernière vidéo :", error);
+                    // En cas d'erreur, affichez la dernière vidéo connue manuellement
+                    $("#liveStream").attr("src", "https://www.youtube.com/embed/3aCln_eEgQU");
+                    $("#liveStreamContainer").show();
                 });
         }
 
-        searchLiveStream();
-        setInterval(searchLiveStream, SEARCH_INTERVAL);
+        fetchLatestVideo();
+        setInterval(fetchLatestVideo, SEARCH_INTERVAL);
 
         Papa.parse("/CSV/pred_test.csv", {
             header: true,
