@@ -10,6 +10,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Inclure PapaParse pour le traitement CSV -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <!-- Inclure DataTables pour la pagination -->
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 </head>
 <body>
     <header>
@@ -26,13 +29,17 @@
     <main>
         <!-- Tableau de l'historique -->
         <div class="table-container small-table">
-            <table>
+            <table id="historiqueTable" class="display">
                 <thead>
                     <tr>
+                        <th>Date</th>
+                        <th>Tournoi</th>
+                        <th>Best of</th>
+                        <th>Round</th>
+                        <th>Surface</th>
                         <th>Vainqueur</th>
                         <th>Perdant</th>
-                        <th>Date</th>
-                        <th>Surface</th>
+                        <th>Score</th>
                     </tr>
                 </thead>
                 <tbody id="historiqueTableBody">
@@ -58,14 +65,21 @@
                     results.data.forEach(row => {
                         const tr = $("<tr></tr>");
                         
-                        // Affichage des colonnes souhaitées uniquement
-                        tr.append(`<td>${row.Winner || '✘'}</td>`);
-                        tr.append(`<td>${row.Loser || '✘'}</td>`);
-                        tr.append(`<td>${row.Date || '✘'}</td>`);
-                        tr.append(`<td>${row.Surface || '✘'}</td>`);
+                        // Affichage des colonnes dans l'ordre spécifié avec une croix seulement si la donnée est manquante
+                        tr.append(`<td>${row.Date ? row.Date : '✘'}</td>`);
+                        tr.append(`<td>${row.Series ? row.Series : '✘'}</td>`);
+                        tr.append(`<td>${row["Best of"] ? row["Best of"] : '✘'}</td>`);
+                        tr.append(`<td>${row.Round ? row.Round : '✘'}</td>`);
+                        tr.append(`<td>${row.Surface ? row.Surface : '✘'}</td>`);
+                        tr.append(`<td>${row.Winner ? row.Winner : '✘'}</td>`);
+                        tr.append(`<td>${row.Loser ? row.Loser : '✘'}</td>`);
+                        tr.append(`<td>${row.score ? row.score : '✘'}</td>`);
                         
                         tableBody.append(tr);
                     });
+                    
+                    // Initialiser DataTables pour ajouter la pagination
+                    $('#historiqueTable').DataTable();
                 },
                 error: function(error) {
                     console.error("Erreur lors du chargement du fichier CSV :", error);
