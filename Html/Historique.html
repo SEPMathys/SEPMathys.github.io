@@ -29,8 +29,13 @@
             <table>
                 <thead>
                     <tr>
+                        <th>Date</th>
                         <th>Vainqueur</th>
                         <th>Perdant</th>
+                        <th>Tournoi</th>
+                        <th>Round</th>
+                        <th>Best of</th>
+                        <th>Surface</th>
                         <th>Score</th>
                     </tr>
                 </thead>
@@ -54,11 +59,17 @@
                 complete: function(results) {
                     const tableBody = $("#historiqueTableBody");
                     results.data.forEach(row => {
-                        if (row.Vainqueur && row.Perdant && row.Score) {
+                        if (row.Winner && row.Loser && row.score&& row.Series && row.Round && row.Bestof && row.Tournoi && row.Date) {
                             const tr = $("<tr></tr>");
-                            tr.append(`<td>${row.Vainqueur}</td>`);
-                            tr.append(`<td>${row.Perdant}</td>`);
-                            tr.append(`<td>${row.Score}</td>`);
+                            tr.append(`<td>${row.Date}</td>`);
+                            tr.append(`<td>${row.Winner}</td>`);
+                            tr.append(`<td>${row.Loser}</td>`);
+                            tr.append(`<td>${row.Tournoi}</td>`);
+                            tr.append(`<td>${row.Round}</td>`);
+                            tr.append(`<td>${row.Bestof}</td>`);
+                            tr.append(`<td>${row.Surface}</td>`);
+                            tr.append(`<td>${row.score}</td>`);
+                        
                             tableBody.append(tr);
                         }
                     });
