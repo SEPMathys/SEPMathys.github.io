@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles/style_index.css">
-    <link rel="icon" href="/Images/Logo_Tennis.png" type="image/webp">
+    <link rel="stylesheet" href="../styles/style_index.css">
+    <link rel="icon" href="../Images/Logo_Tennis.png" type="image/webp">
     <title>Historique des matchs</title>
     <!-- Inclure jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -16,9 +16,9 @@
         <h1>Historique des matchs</h1>
         <nav>
             <ul>
-                <li><a href="/index.html">Accueil</a></li>
-                <li><a href="/Html/Historique.html">Historique</a></li>
-                <li><a href="/Html/Contact.html">Contact</a></li>
+                <li><a href="../index.html">Accueil</a></li>
+                <li><a href="Historique.html">Historique</a></li>
+                <li><a href="Contact.html">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -29,14 +29,10 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Date</th>
                         <th>Vainqueur</th>
                         <th>Perdant</th>
-                        <th>Tournoi</th>
-                        <th>Round</th>
-                        <th>Best of</th>
+                        <th>Date</th>
                         <th>Surface</th>
-                        <th>Score</th>
                     </tr>
                 </thead>
                 <tbody id="historiqueTableBody">
@@ -47,32 +43,32 @@
     
     <footer>
         <p>&copy; 2024 Prédiction des matchs de tennis. Tous droits réservés.</p>
-        <p><a href="/Html/privacy.html">Politique de confidentialité</a> | <a href="/Html/terms.html">Conditions d'utilisation</a></p>
+        <p><a href="privacy.html">Politique de confidentialité</a> | <a href="terms.html">Conditions d'utilisation</a></p>
     </footer>
 
     <script>
         // Charger et afficher le contenu du fichier Historique.csv
         $(document).ready(function() {
-            Papa.parse("/CSV/Historique.csv", {
+            Papa.parse("../CSV/Historique.csv", {
                 header: true,
                 download: true,
+                skipEmptyLines: true,
                 complete: function(results) {
                     const tableBody = $("#historiqueTableBody");
                     results.data.forEach(row => {
-                        if (row.Winner && row.Loser && row.score&& row.Series && row.Round && row.Bestof && row.Tournoi && row.Date) {
-                            const tr = $("<tr></tr>");
-                            tr.append(`<td>${row.Date}</td>`);
-                            tr.append(`<td>${row.Winner}</td>`);
-                            tr.append(`<td>${row.Loser}</td>`);
-                            tr.append(`<td>${row.Tournoi}</td>`);
-                            tr.append(`<td>${row.Round}</td>`);
-                            tr.append(`<td>${row.Bestof}</td>`);
-                            tr.append(`<td>${row.Surface}</td>`);
-                            tr.append(`<td>${row.score}</td>`);
+                        const tr = $("<tr></tr>");
                         
-                            tableBody.append(tr);
-                        }
+                        // Affichage des colonnes souhaitées uniquement
+                        tr.append(`<td>${row.Winner || '✘'}</td>`);
+                        tr.append(`<td>${row.Loser || '✘'}</td>`);
+                        tr.append(`<td>${row.Date || '✘'}</td>`);
+                        tr.append(`<td>${row.Surface || '✘'}</td>`);
+                        
+                        tableBody.append(tr);
                     });
+                },
+                error: function(error) {
+                    console.error("Erreur lors du chargement du fichier CSV :", error);
                 }
             });
         });
