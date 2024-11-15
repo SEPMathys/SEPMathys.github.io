@@ -42,7 +42,7 @@ Le site utilise une combinaison de technologies modernes pour garantir performan
 ├── index.html           # Page principale
 ├── README.md            # Documentation
 └── LICENSE              # Licence du projet (ex. MIT)
-
+```
 ---
 
 ## 🖥️ Déploiement
