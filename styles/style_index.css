@@ -41,17 +41,16 @@ nav a:hover {
   font-weight: bold;
   color: #4caf50;
   text-align: center;
-  margin-bottom: 10px;
+  z-index: 2;
 }
 
 /* Conteneur principal */
 .content-container {
   display: flex;
+  gap: 10px;
   justify-content: center;
-  align-items: flex-start;
-  gap: 20px;
-  padding: 40px 20px;
-  flex: 1;
+  align-items: center;
+  z-index: 1;
 }
 
 /* Conteneur du diagramme circulaire */
@@ -89,9 +88,10 @@ nav a:hover {
 table {
   border-collapse: collapse;
   width: 100%;
+  margin: 2px 0;
 }
 
-table, th, td {
+th, td {
   border: 1px solid #a1a1a1;
 }
 
@@ -142,9 +142,32 @@ footer {
   width: 60%; /* Réduit la largeur du tableau */
   max-width: 900px;
   margin: 40px auto;
+  display: block;
 }
 
 /* Retirer l'effet de zoom pour la page Historique */
 .table-container.small-table:hover {
   transform: none; /* Désactive le zoom pour cette classe */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .content-container {
+    flex-direction: column;
+  }
+  .small-table table, .small-table thead, .small-table tbody, .small-table th, .small-table td, .small-table tr{
+    display: block;
+  }
+
+  .small-table tr{
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    background-color: #f9f9f9;
+  }
+
+  .small-table thead{
+    display: none;
+  }
 }
