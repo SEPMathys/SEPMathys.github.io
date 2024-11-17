@@ -12,9 +12,9 @@
     </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/style_index.css">
+    <link rel="stylesheet" href="./styles/style_index.css">
     <title>Prédiction des matchs de tennis</title>
-    <link rel="icon" href="/Images/Logo_Tennis.png" type="image/webp">
+    <link rel="icon" href="./Images/Logo_Tennis.png" type="image/webp">
     <!-- Inclure jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Inclure PapaParse pour le traitement CSV -->
@@ -28,9 +28,9 @@
         <h1>Prédiction des matchs de tennis</h1>
         <nav>
             <ul>
-                <li><a href="/index.html">Accueil</a></li>
-                <li><a href="/Html/Historique.html">Historique</a></li>
-                <li><a href="/Html/Contact.html">Contact</a></li>
+                <li><a href="./index.html">Accueil</a></li>
+                <li><a href="./Html/Historique.html">Historique</a></li>
+                <li><a href="./Html/Contact.html">Contact</a></li>
             </ul>
         </nav>
     </header>
@@ -65,7 +65,7 @@
 
     <footer>
         <p>&copy; 2024 Prédiction des matchs de tennis. Tous droits réservés.</p>
-        <p><a href="/Html/privacy.html">Politique de confidentialité</a> | <a href="/Html/terms.html">Conditions d'utilisation</a></p>
+        <p><a href="./Html/privacy.html">Politique de confidentialité</a> | <a href="./Html/terms.html">Conditions d'utilisation</a></p>
     </footer>
 
     <script>
@@ -110,7 +110,7 @@
         fetchLatestVideo();
         setInterval(fetchLatestVideo, SEARCH_INTERVAL);
 
-        Papa.parse("/CSV/pred_test.csv", {
+        Papa.parse("./CSV/pred_test.csv", {
         header: true,
         download: true,
         complete: function(results) {
@@ -127,7 +127,7 @@
         }   
         });
 
-        Papa.parse("/CSV/resultat.csv", {
+        Papa.parse("./CSV/resultat.csv", {
             header: true,
             download: true,
             complete: function(results) {
