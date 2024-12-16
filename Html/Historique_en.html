@@ -1,44 +1,44 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/style_index.css">
     <link rel="icon" href="../Images/Logo_Tennis.png" type="image/webp">
-    <title>Historique des matchs</title>
-    <!-- Inclure jQuery -->
+    <title>Match History</title>
+    <!-- Include jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- Inclure PapaParse pour le traitement CSV -->
+    <!-- Include PapaParse for CSV processing -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
-    <!-- Inclure DataTables pour la pagination -->
+    <!-- Include DataTables for pagination -->
     <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
 </head>
 <body>
     <header>
-        <h1>Historique des matchs</h1>
+        <h1>Match History</h1>
         <nav>
             <ul>
-                <li><a href="../index.html">Accueil</a></li>
-                <li><a href="Historique.html">Historique</a></li>
-                <li><a href="Contact.html">Contact</a></li>
+                <li><a href="index_en.html">Home</a></li>
+                <li><a href="Historique_en.html">History</a></li>
+                <li><a href="Contact_en.html">Contact</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <!-- Tableau de l'historique -->
+        <!-- History table -->
         <div class="table-container small-table">
             <table id="historiqueTable" class="display">
                 <thead>
                     <tr>
                         <th>Date</th>
-                        <th>Tournoi</th>
+                        <th>Tournament</th>
                         <th>Best of</th>
                         <th>Round</th>
                         <th>Surface</th>
-                        <th>Vainqueur</th>
-                        <th>Perdant</th>
+                        <th>Winner</th>
+                        <th>Loser</th>
                         <th>Score</th>
                     </tr>
                 </thead>
@@ -50,20 +50,20 @@
     
     <!-- Fixed language selector -->
     <div id="language-selector">
-        <label for="lang">Langue:</label>
+        <label for="lang">Language:</label>
         <select id="lang">
-            <option value="fr" selected>Français</option>
-            <option value="en">English</option>
+            <option value="fr">Français</option>
+            <option value="en" selected>English</option>
         </select>
     </div>
 
     <footer>
-        <p>&copy; 2024 Prédiction des matchs de tennis. Tous droits réservés.</p>
-        <p><a href="privacy.html">Politique de confidentialité</a> | <a href="terms.html">Conditions d'utilisation</a></p>
+        <p>&copy; 2024 Tennis Match Prediction. All rights reserved.</p>
+        <p><a href="privacy_en.html">Privacy Policy</a> | <a href="terms_en.html">Terms of Use</a></p>
     </footer>
 
     <script>
-        // Charger et afficher le contenu du fichier Historique.csv
+        // Load and display content from Historique.csv
         $(document).ready(function() {
             Papa.parse("../CSV/Historique.csv", {
                 header: true,
@@ -74,7 +74,7 @@
                     results.data.forEach(row => {
                         const tr = $("<tr></tr>");
                         
-                        // Affichage des colonnes dans l'ordre spécifié avec une croix seulement si la donnée est manquante
+                        // Display columns in specified order with a cross for missing data
                         tr.append(`<td>${row.Date ? row.Date : '✘'}</td>`);
                         tr.append(`<td>${row.Series ? row.Series : '✘'}</td>`);
                         tr.append(`<td>${row["Best of"] ? row["Best of"] : '✘'}</td>`);
@@ -87,15 +87,15 @@
                         tableBody.append(tr);
                     });
                     
-                    // Initialiser DataTables pour ajouter la pagination
+                    // Initialize DataTables for pagination
                     $('#historiqueTable').DataTable();
                 },
                 error: function(error) {
-                    console.error("Erreur lors du chargement du fichier CSV :", error);
+                    console.error("Error loading CSV file:", error);
                 }
             });
         });
-        
+
         document.getElementById('lang').addEventListener('change', function() {
         const selectedLang = this.value;
         if (selectedLang === 'fr') {

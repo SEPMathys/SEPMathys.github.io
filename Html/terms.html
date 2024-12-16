@@ -7,15 +7,20 @@
     <link rel="stylesheet" href="../styles/style_index.css">
     <link rel="icon" type="image/webp" href="../Images/Logo_Tennis.png">
 </head>
+
 <body>
+
     <header>
         <h1>Conditions d'utilisation</h1>
         <nav>
-            <a href="../index.html">Accueil</a>
-            <a href="./Historique.html">Historique</a>
-            <a href="./Contact.html">Contact</a>
+            <ul>
+                <li><a href="/index.html">Accueil</a></li>
+                <li><a href="/Html/Historique.html">Historique</a></li>
+                <li><a href="/Html/Contact.html">Contact</a></li>
+            </ul>
         </nav>
     </header>
+
     <main>
         <div class="content-container">
             <div class="text-container">
@@ -33,9 +38,31 @@
             </div>
         </div>
     </main>
+
+    <!-- Fixed language selector -->
+    <div id="language-selector">
+        <label for="lang">Langue:</label>
+        <select id="lang">
+            <option value="fr" selected>Français</option>
+            <option value="en">English</option>
+        </select>
+    </div>
+
     <footer>
         <p>&copy; 2024 Prédiction des matchs de tennis. Tous droits réservés.</p>
-        <p><a href="./privacy.html">Politique de confidentialité</a> | <a href="#">Conditions d'utilisation</a></p>
+        <p><a href="/Html/privacy.html">Politique de confidentialité</a> | <a href="/Html/terms.html">Conditions d'utilisation</a></p>
     </footer>
+
+    <script>
+        document.getElementById('lang').addEventListener('change', function() {
+        const selectedLang = this.value;
+        if (selectedLang === 'fr') {
+            window.location.href = 'terms.html';
+        } else {
+            window.location.href = 'terms_en.html';
+        }
+    });
+    </script>
+
 </body>
 </html>

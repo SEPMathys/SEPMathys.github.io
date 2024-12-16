@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Use</title>
+    <link rel="stylesheet" href="../styles/style_index.css">
+    <link rel="icon" type="image/webp" href="../Images/Logo_Tennis.png">
+</head>
+<body>
+    <header>
+        <h1>Terms of Use</h1>
+        <nav>
+            <ul>
+                <li><a href="/Html/index_en.html">Home</a></li>
+                <li><a href="/Html/Historique_en.html">History</a></li>
+                <li><a href="/Html/Contact_en.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="content-container">
+            <div class="text-container">
+                <h2>Introduction</h2>
+                <p>Welcome to our site. By using our site, you agree to the following terms of use.</p>
+                
+                <h2>Site Use</h2>
+                <p>You agree to use this site in a legal manner and respectful of the rights of others.</p>
+                
+                <h2>Limitation of Liability</h2>
+                <p>We are not responsible for indirect damages resulting from the use of our site.</p>
+                
+                <h2>Changes to Terms</h2>
+                <p>We reserve the right to change these terms at any time. Please check this page regularly for updates.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Fixed language selector -->
+    <div id="language-selector">
+        <label for="lang">Language:</label>
+        <select id="lang">
+            <option value="fr">Français</option>
+            <option value="en" selected>English</option>
+        </select>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Tennis Match Prediction. All rights reserved.</p>
+        <p><a href="/Html/privacy_en.html">Privacy Policy</a> | <a href="/Html/terms_en.html">Terms of Use</a></p>
+    </footer>
+
+    <script>
+        document.getElementById('lang').addEventListener('change', function() {
+        const selectedLang = this.value;
+        if (selectedLang === 'fr') {
+            window.location.href = 'terms.html';
+        } else {
+            window.location.href = 'terms_en.html';
+        }
+    });
+    </script>
+
+</body>
+</html>

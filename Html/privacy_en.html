@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy</title>
+    <link rel="stylesheet" href="../styles/style_index.css">
+    <link rel="icon" type="image/webp" href="../Images/Logo_Tennis.png">
+</head>
+<body>
+
+    <header>
+        <h1>Privacy Policy</h1>
+        <nav>
+            <ul>
+                <li><a href="/Html/index_en.html">Home</a></li>
+                <li><a href="/Html/Historique_en.html">History</a></li>
+                <li><a href="/Html/Contact_en.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div class="content-container">
+            <div class="text-container">
+                <h2>Introduction</h2>
+                <p>Your privacy is important to us. This privacy policy explains what information we collect and how we use it.</p>
+                
+                <h2>Data Collected</h2>
+                <p>We collect information when you visit our site, including your IP address, pages visited, etc.</p>
+                
+                <h2>Use of Data</h2>
+                <p>The data collected is used to improve our services and provide a better user experience.</p>
+                
+                <h2>Information Sharing</h2>
+                <p>We do not share your personal information with third parties without your consent, unless required by law.</p>
+                
+                <h2>Your Rights</h2>
+                <p>You have the right to access, correct, or delete your personal data. To exercise these rights, please contact us.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Fixed language selector -->
+    <div id="language-selector">
+        <label for="lang">Language:</label>
+        <select id="lang">
+            <option value="fr">Français</option>
+            <option value="en" selected>English</option>
+        </select>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Tennis Match Prediction. All rights reserved.</p>
+        <p><a href="/Html/privacy_en.html">Privacy Policy</a> | <a href="/Html/terms_en.html">Terms of Use</a></p>
+    </footer>
+
+    <script>
+        document.getElementById('lang').addEventListener('change', function() {
+        const selectedLang = this.value;
+        if (selectedLang === 'fr') {
+            window.location.href = 'privacy.html';
+        } else {
+            window.location.href = 'privacy_en.html';
+        }
+    });
+    </script>
+
+</body>
+</html>

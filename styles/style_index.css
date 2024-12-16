@@ -20,16 +20,25 @@ header {
   text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
 }
 
-nav a {
-  color: #1a1a1a;
-  text-decoration: none;
-  font-weight: bold;
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+nav ul li {
   display: inline;
   margin: 0 15px;
   transition: color 0.3s, transform 0.3s, text-shadow 0.3s;
 }
 
-nav a:hover {
+nav ul li a {
+  color: #1a1a1a;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav ul li:hover {
   color: #5c94ff;
   transform: scale(1.1);
   text-shadow: 0 0 10px #5c94ff;
@@ -39,18 +48,19 @@ nav a:hover {
 .chart-header {
   font-size: 24px;
   font-weight: bold;
-  color: #4caf50;
+  color: #000000; /* Noir */
   text-align: center;
-  z-index: 2;
+  margin-bottom: 10px;
 }
 
 /* Conteneur principal */
 .content-container {
   display: flex;
-  gap: 10px;
   justify-content: center;
-  align-items: center;
-  z-index: 1;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 40px 20px;
+  flex: 1;
 }
 
 /* Conteneur du diagramme circulaire */
@@ -88,10 +98,9 @@ nav a:hover {
 table {
   border-collapse: collapse;
   width: 100%;
-  margin: 2px 0;
 }
 
-th, td {
+table, th, td {
   border: 1px solid #a1a1a1;
 }
 
@@ -131,23 +140,90 @@ footer {
   box-shadow: 0 0 15px rgba(92, 148, 255, 0.3);
   background-color: #ffffff;
   border-radius: 8px;
-  width: 500px; /* Largeur de la vidéo */
-  height: 300px; /* Hauteur de la vidéo */
-  margin-top: 20px; /* Ajustement de l'espacement au-dessus */
+  width: 500px;
+  height: 300px;
+  margin-top: 20px;
 }
-
 
 /* Style pour les tableaux plus petits */
 .table-container.small-table {
-  width: 60%; /* Réduit la largeur du tableau */
+  width: 60%;
   max-width: 900px;
   margin: 40px auto;
-  display: block;
 }
 
 /* Retirer l'effet de zoom pour la page Historique */
 .table-container.small-table:hover {
-  transform: none; /* Désactive le zoom pour cette classe */
+  transform: none;
+}
+
+/* Sélecteur de langue */
+#language-selector {
+  position: fixed;
+  top: 50%;
+  right: 10px;
+  background-color: #ffffff;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+  z-index: 1000;
+  font-family: 'Roboto', sans-serif;
+}
+#language-selector label {
+  margin-right: 5px;
+  font-weight: bold;
+}
+#language-selector select {
+  padding: 5px;
+  border-radius: 4px;
+  border: 1px solid #a1a1a1;
+  background-color: #f0f0f0;
+  cursor: pointer;
+}
+.chart-container canvas {
+  color: #000000; /* Définit le texte en noir */
+}
+
+.text-container h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #2c2c2c;
+  margin-bottom: 10px;
+  text-align: left; /* Aligner les titres à gauche */
+}
+
+.text-container p {
+  font-size: 18px;
+  line-height: 1.6; /* Augmente l'espacement entre les lignes */
+  color: #4d4d4d; /* Couleur de texte légèrement plus foncée */
+  margin-bottom: 20px; /* Ajoute de l'espace sous chaque paragraphe */
+  text-align: justify; /* Justifie le texte pour un alignement propre */
+}
+
+.legend-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.legend-box {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.legend-correct {
+  background-color: #4caf50; /* Green for correct predictions */
+}
+
+.legend-incorrect {
+  background-color: #f44336; /* Red for incorrect predictions */
 }
 
 /* Responsive Design */
